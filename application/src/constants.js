@@ -1,3 +1,3 @@
 export default {
-    URI: 'http://localhost:5050'
+    URI: 'https://tic-tac-toe-letsendorse.herokuapp.com'
 }

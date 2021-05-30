@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-    <Row className="container" justify="center">
+    <Row style={{pointerEvents: loading ? 'none' : 'auto'}} className="container" justify="center">
       <Col className="spinner-wrap"><HashLoader loading={loading}  /></Col>
       <Col flex={"auto"} style={{width: '100%'}}>
         {

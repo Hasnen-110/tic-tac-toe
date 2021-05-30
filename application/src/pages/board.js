@@ -16,15 +16,6 @@ const Board = (props) => {
     const [currentPlayer, setCurrentPlayer] = useState(PLAYERS[0]); 
     const [board, setBoard] = useState(INITIAL_BOARD);
     const [winner, setWinner] = useState();
-    
-    useEffect(() => {
-        if (props.vscomputer) {
-            var temp = JSON.parse(JSON.stringify(board));
-            temp[0][0] = currentPlayer; 
-            setBoard(temp);
-            setCurrentPlayer(currentPlayer == PLAYERS[0] ? PLAYERS[1] : PLAYERS[0]);
-        }
-    }, [])
 
     const checkWinner = async (temp) => {
         var resp = await service.Board().checkWinner(temp)
@@ -37,10 +28,12 @@ const Board = (props) => {
         var nextplayer = currentPlayer == PLAYERS[0] ? PLAYERS[1] : PLAYERS[0];
         if (props.vscomputer) {
             var move = await service.Board().getNextMove(temp, nextplayer, currentPlayer);
-            var tmp = JSON.parse(JSON.stringify(temp));
-            tmp[move.i][move.j] = nextplayer; 
-            setBoard(tmp);
-            await checkWinner(tmp);
+            if (move && (move.i != undefined) && (move.j != undefined)){
+                var tmp = JSON.parse(JSON.stringify(temp));
+                tmp[move?.i][move?.j] = nextplayer; 
+                setBoard(tmp);
+                await checkWinner(tmp);
+            }
         } else setCurrentPlayer(nextplayer);
     }
 
@@ -53,14 +46,8 @@ const Board = (props) => {
     }
 
     const handleRefresh = () => {
-        if (props.vscomputer) {
-            var temp = JSON.parse(JSON.stringify(INITIAL_BOARD));
-            temp[0][0] = PLAYERS[0];
-            setBoard(temp); 
-        } else {
-            setBoard(INITIAL_BOARD);
-            setCurrentPlayer(PLAYERS[1])
-        }
+        setBoard(INITIAL_BOARD);
+        setCurrentPlayer(PLAYERS[1])
         setWinner();
     }
 

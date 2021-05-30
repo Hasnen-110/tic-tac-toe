@@ -7,6 +7,18 @@ class Computer {
         this.minimizer  = options.minimizer;
     }
 
+    /**
+     * method to traverse to the last node, calculate the 
+     * score based on if win is possible and then backtrack 
+     * to the previous node and get the min value for the 
+     * opponent and the max value for the computer.
+     * @param {*} board - 3 x 3 game board
+     * @param {*} depth - depth of  the tree
+     * @param {*} initialscore - positive infinity for minimizer and negative for maximizer
+     * @param {*} turn - Maximizer || Minimizer
+     * @param {*} picker - Math max or min method
+     * @returns - Number 
+     */
     _minmaxAlgo(board=this.board, depth, initialscore, turn, picker) {
         var Score = initialscore;
         var {winner} = new Board({board}).checkWinner();

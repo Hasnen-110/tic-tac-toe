@@ -130,3 +130,10 @@
 .menu-input:focus {
   outline: none;
 }
+
+.spinner-wrap {
+  height: fit-content;
+  position: absolute;
+  z-index: 999;
+  top: 225px;
+}
